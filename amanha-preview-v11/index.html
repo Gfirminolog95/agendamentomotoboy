@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2b1b55">
+<title>Amanhã — V11</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<section id="auth" class="auth show">
+  <div class="auth-screen active" data-auth="welcome">
+    <div class="brand"><span class="brand-mark">◒</span><b>Amanhã</b></div>
+    <div class="brand-art"><div><small>VEJA ALÉM DO SALDO</small><strong>Entenda hoje.<br>Decida melhor<br>o amanhã.</strong></div></div>
+    <h1>Seu dinheiro,<br>com mais clareza.</h1>
+    <p>Controle o que entra e sai, veja seu saldo dia a dia e simule decisões antes de gastar.</p>
+    <div class="auth-actions">
+      <button class="primary" data-auth-go="signup">Criar minha conta</button>
+      <button class="secondary" data-auth-go="login">Já tenho uma conta</button>
+      <button class="link" data-demo>Explorar demonstração</button>
+    </div>
+  </div>
+
+  <div class="auth-screen" data-auth="login">
+    <button class="back" data-auth-go="welcome">‹</button>
+    <div class="eyebrow">BEM-VINDO DE VOLTA</div>
+    <h2>Entrar no Amanhã</h2>
+    <p>Continue de onde parou.</p>
+    <label>E-mail<input value="demo@amanha.app"></label>
+    <label>Senha<input type="password" value="12345678"></label>
+    <button class="link right" data-auth-go="forgot">Esqueci minha senha</button>
+    <button class="primary" data-login>Entrar</button>
+    <p class="center">Ainda não tem conta? <button class="link" data-auth-go="signup">Criar conta</button></p>
+  </div>
+
+  <div class="auth-screen" data-auth="signup">
+    <button class="back" data-auth-go="welcome">‹</button>
+    <div class="eyebrow">COMECE AGORA</div>
+    <h2>Crie sua conta</h2>
+    <p>Depois montamos seu primeiro Horizonte.</p>
+    <label>Nome<input id="signupName" value="Geovane"></label>
+    <label>E-mail<input value="demo@amanha.app"></label>
+    <label>Senha<input type="password" value="12345678"></label>
+    <button class="primary" data-auth-go="verify">Continuar</button>
+  </div>
+
+  <div class="auth-screen auth-center" data-auth="verify">
+    <div class="ok purple">✉</div>
+    <h2>Confira seu e-mail</h2>
+    <p>Para testar, use <b>123456</b>.</p>
+    <label>Código<input value="123456" class="code"></label>
+    <button class="primary" id="startOnboarding">Confirmar e continuar</button>
+  </div>
+
+  <div class="auth-screen" data-auth="forgot">
+    <button class="back" data-auth-go="login">‹</button>
+    <div class="eyebrow">RECUPERAÇÃO</div>
+    <h2>Esqueceu a senha?</h2>
+    <p>No app real enviaremos um link para seu e-mail.</p>
+    <label>E-mail<input value="demo@amanha.app"></label>
+    <button class="primary" data-auth-go="reset">Enviar link</button>
+  </div>
+
+  <div class="auth-screen auth-center" data-auth="reset">
+    <div class="ok">✓</div>
+    <h2>Link enviado</h2>
+    <p>Fluxo demonstrativo concluído.</p>
+    <button class="primary" data-auth-go="login">Voltar para entrar</button>
+  </div>
+</section>
+
+<section id="onboarding" class="onboarding">
+  <header><div class="brand"><span class="brand-mark">◒</span><b>Amanhã</b></div><small id="onCount">1 de 4</small></header>
+  <div class="progress"><i id="onProgress"></i></div>
+  <div class="on-step active" data-on="0">
+    <div class="eyebrow">SEU PONTO DE PARTIDA</div><h2>Quanto você tem hoje?</h2>
+    <p>Use o saldo das contas que fazem parte do seu dia a dia.</p>
+    <label>Saldo atual<input id="onBalance" type="number" value="1500"></label>
+  </div>
+  <div class="on-step" data-on="1">
+    <div class="eyebrow">O QUE ENTRA</div><h2>Sua renda principal</h2>
+    <label>Renda mensal<input id="onIncome" type="number" value="5000"></label>
+    <label>Dia que recebe<input id="onIncomeDay" type="number" value="5"></label>
+  </div>
+  <div class="on-step" data-on="2">
+    <div class="eyebrow">O QUE JÁ ESTÁ NO CAMINHO</div><h2>Compromissos mensais</h2>
+    <div id="commitments">
+      <div class="commit"><input value="Aluguel"><input type="number" value="1800"><input type="number" value="7"><button>×</button></div>
+      <div class="commit"><input value="Internet"><input type="number" value="120"><input type="number" value="10"><button>×</button></div>
+    </div>
+    <button class="secondary compact" id="addCommit">+ Adicionar compromisso</button>
+    <label>Orçamento flexível<input id="onFlex" type="number" value="1800"></label>
+  </div>
+  <div class="on-step" data-on="3">
+    <div class="eyebrow">DINHEIRO PROTEGIDO</div><h2>Reserva Protegida</h2>
+    <label>Valor atual<input id="onReserve" type="number" value="500"></label>
+    <label>Meta<input id="onReserveTarget" type="number" value="10000"></label>
+  </div>
+  <footer><button class="secondary" id="onBack">Voltar</button><button class="primary" id="onNext">Continuar</button></footer>
+</section>
+
+<main id="app" class="app hidden">
+  <div id="content"></div>
+  <nav class="bottom">
+    <button data-tab="home"><span>⌂</span>Início</button>
+    <button data-tab="horizon"><span>◒</span>Horizonte</button>
+    <button id="plus" class="plus">＋</button>
+    <button data-tab="cards"><span>▣</span>Cartões</button>
+    <button data-tab="profile"><span>○</span>Perfil</button>
+  </nav>
+</main>
+
+<section id="sheet" class="sheet">
+  <div class="sheet-panel">
+    <header class="sheet-head"><div><div id="sheetEye" class="eyebrow"></div><h2 id="sheetTitle"></h2></div><button class="close" data-close>×</button></header>
+    <div id="sheetBody"></div>
+  </div>
+</section>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
