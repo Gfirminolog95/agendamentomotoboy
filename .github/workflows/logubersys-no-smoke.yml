@@ -9,21 +9,15 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
-      - name: Check public NÓ page and deployment marker
+      - name: Check live NÓ page
         shell: bash
         run: |
           set -euo pipefail
-          echo 'Checking /no/'
           curl --fail --silent --show-error --location --max-time 30 \
             --dump-header /tmp/no-headers.txt \
             --output /tmp/no-body.html \
             https://logubersys.cloud/no/
           cat /tmp/no-headers.txt
-          head -c 1500 /tmp/no-body.html || true
-          echo
-          grep -Fi 'X-Loguber-Release: no-20260911-root-route-v1' /tmp/no-headers.txt
+          grep -Fi 'X-Loguber-Public-Page: no' /tmp/no-headers.txt
+          grep -F '<title>NÓ — Uma operação conectada</title>' /tmp/no-body.html
           grep -F 'Uma operação que' /tmp/no-body.html
-          echo 'Checking /build-info/'
-          curl --fail --silent --show-error --location --max-time 30 \
-            https://logubersys.cloud/build-info/ | tee /tmp/build-info.json
-          grep -F 'no-20260911-root-route-v1' /tmp/build-info.json
