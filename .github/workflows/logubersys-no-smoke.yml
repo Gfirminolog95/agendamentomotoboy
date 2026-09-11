@@ -1,0 +1,37 @@
+name: LoguberSys NÓ smoke check
+
+on:
+  push:
+    branches:
+      - diag/logubersys-no-smoke-20260911
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check public NÓ page
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            --max-time 30 \
+            --dump-header /tmp/no-headers.txt \
+            --output /tmp/no-body.html \
+            https://logubersys.cloud/no/
+          echo '--- HEADERS ---'
+          cat /tmp/no-headers.txt
+          echo '--- BODY SAMPLE ---'
+          head -c 1200 /tmp/no-body.html
+          echo
+          grep -Fi 'X-Loguber-Release: no-20260911-root-route-v1' /tmp/no-headers.txt
+          grep -F 'Uma operação que' /tmp/no-body.html
+
+      - name: Check deployment marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location \
+            --max-time 30 \
+            https://logubersys.cloud/build-info/ | tee /tmp/build-info.json
+          grep -F 'no-20260911-root-route-v1' /tmp/build-info.json
